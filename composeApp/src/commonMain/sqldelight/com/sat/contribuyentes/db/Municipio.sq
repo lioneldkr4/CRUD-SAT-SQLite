@@ -1,0 +1,16 @@
+CREATE TABLE Municipio (
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    clave TEXT NOT NULL,
+    nombre TEXT NOT NULL,
+    estado_clave TEXT NOT NULL,
+    FOREIGN KEY (estado_clave) REFERENCES Estado(clave)
+);
+
+insertMunicipio:
+INSERT INTO Municipio(clave, nombre, estado_clave) VALUES (?, ?, ?);
+
+getMunicipiosByEstado:
+SELECT * FROM Municipio WHERE estado_clave = ? ORDER BY nombre ASC;
+
+getAllMunicipios:
+SELECT * FROM Municipio ORDER BY nombre ASC;

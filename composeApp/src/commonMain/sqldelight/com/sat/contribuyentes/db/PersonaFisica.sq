@@ -1,0 +1,70 @@
+CREATE TABLE PersonaFisica (
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    curp TEXT NOT NULL UNIQUE,
+    nombre TEXT NOT NULL,
+    fecha_nacimiento TEXT NOT NULL,
+    correo TEXT NOT NULL,
+    telefono TEXT NOT NULL,
+    -- Domicilio Fiscal
+    codigo_postal TEXT NOT NULL,
+    estado_clave TEXT NOT NULL,
+    municipio_id INTEGER NOT NULL,
+    localidad TEXT NOT NULL,
+    colonia TEXT NOT NULL,
+    tipo_vialidad TEXT NOT NULL,
+    nombre_vialidad TEXT NOT NULL,
+    numero_exterior TEXT NOT NULL,
+    numero_interior TEXT,
+    entre_calle1 TEXT,
+    entre_calle2 TEXT,
+    referencia_adicional TEXT,
+    caracteristicas_domicilio TEXT,
+    -- Actividad
+    actividad_economica TEXT NOT NULL,
+    regimen_fiscal TEXT NOT NULL
+);
+
+insertPersonaFisica:
+INSERT INTO PersonaFisica(
+    curp, nombre, fecha_nacimiento, correo, telefono,
+    codigo_postal, estado_clave, municipio_id, localidad, colonia,
+    tipo_vialidad, nombre_vialidad, numero_exterior, numero_interior,
+    entre_calle1, entre_calle2, referencia_adicional, caracteristicas_domicilio,
+    actividad_economica, regimen_fiscal
+) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+
+getAllPersonasFisicas:
+SELECT * FROM PersonaFisica ORDER BY nombre ASC;
+
+getPersonaFisicaById:
+SELECT * FROM PersonaFisica WHERE id = ?;
+
+updatePersonaFisica:
+UPDATE PersonaFisica SET
+    curp = ?,
+    nombre = ?,
+    fecha_nacimiento = ?,
+    correo = ?,
+    telefono = ?,
+    codigo_postal = ?,
+    estado_clave = ?,
+    municipio_id = ?,
+    localidad = ?,
+    colonia = ?,
+    tipo_vialidad = ?,
+    nombre_vialidad = ?,
+    numero_exterior = ?,
+    numero_interior = ?,
+    entre_calle1 = ?,
+    entre_calle2 = ?,
+    referencia_adicional = ?,
+    caracteristicas_domicilio = ?,
+    actividad_economica = ?,
+    regimen_fiscal = ?
+WHERE id = ?;
+
+deletePersonaFisica:
+DELETE FROM PersonaFisica WHERE id = ?;
+
+searchPersonaFisica:
+SELECT * FROM PersonaFisica WHERE nombre LIKE ? OR curp LIKE ? ORDER BY nombre ASC;

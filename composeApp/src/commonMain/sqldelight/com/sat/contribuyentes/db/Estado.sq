@@ -1,0 +1,14 @@
+CREATE TABLE Estado (
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    clave TEXT NOT NULL UNIQUE,
+    nombre TEXT NOT NULL
+);
+
+insertEstado:
+INSERT INTO Estado(clave, nombre) VALUES (?, ?);
+
+getAllEstados:
+SELECT * FROM Estado ORDER BY nombre ASC;
+
+getEstadoByClave:
+SELECT * FROM Estado WHERE clave = ?;

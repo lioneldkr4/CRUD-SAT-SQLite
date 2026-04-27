@@ -83,7 +83,12 @@ fun DetallePersonaFisicaScreen(
                 HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
                 SectionTitle("Domicilio Fiscal")
                 DetalleRow("Codigo Postal", pf.domicilio.codigoPostal)
-                DetalleRow("Estado", pf.domicilio.estadoClave)
+                val estados by viewModel.estados.collectAsState()
+                val estadoNombre = estados.find { it.clave == pf.domicilio.estadoClave }?.nombre ?: pf.domicilio.estadoClave
+                DetalleRow("Estado", estadoNombre)
+                val municipios by viewModel.municipios.collectAsState()
+                val municipioNombre = municipios.find { it.id == pf.domicilio.municipioId }?.nombre ?: ""
+                DetalleRow("Municipio", municipioNombre)
                 DetalleRow("Localidad", pf.domicilio.localidad)
                 DetalleRow("Colonia", pf.domicilio.colonia)
                 DetalleRow(

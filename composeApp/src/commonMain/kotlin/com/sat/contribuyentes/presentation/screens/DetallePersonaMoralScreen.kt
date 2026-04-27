@@ -83,7 +83,12 @@ fun DetallePersonaMoralScreen(
                 HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
                 SectionTitle("Domicilio Fiscal")
                 DetalleRow("Codigo Postal", pm.domicilio.codigoPostal)
-                DetalleRow("Estado", pm.domicilio.estadoClave)
+                val estados by viewModel.estados.collectAsState()
+                val estadoNombre = estados.find { it.clave == pm.domicilio.estadoClave }?.nombre ?: pm.domicilio.estadoClave
+                DetalleRow("Estado", estadoNombre)
+                val municipios by viewModel.municipios.collectAsState()
+                val municipioNombre = municipios.find { it.id == pm.domicilio.municipioId }?.nombre ?: ""
+                DetalleRow("Municipio", municipioNombre)
                 DetalleRow("Localidad", pm.domicilio.localidad)
                 DetalleRow("Colonia", pm.domicilio.colonia)
                 DetalleRow(

@@ -45,13 +45,15 @@ fun FormPersonaFisicaScreen(
     val allPersonas by viewModel.personasFisicas.collectAsState()
 
     // Load record for editing
-    LaunchedEffect(editingId, allPersonas) {
-        if (editingId != null) {
+    LaunchedEffect(editingId, allPersonas, estados, municipios) {
+        if (editingId != null && estados.isNotEmpty()) {
             val pf = allPersonas.find { it.id == editingId }
             if (pf != null && formState.editingId == null) {
                 viewModel.prepareForEdit(pf, estados, municipios)
+            } else if (pf != null && formState.editingId != null && formState.municipioSeleccionado == null) {
+                viewModel.prepareForEdit(pf, estados, municipios)
             }
-        } else {
+        } else if (editingId == null) {
             if (formState.editingId != null) viewModel.resetForm()
         }
     }

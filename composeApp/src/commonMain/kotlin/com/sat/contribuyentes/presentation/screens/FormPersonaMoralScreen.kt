@@ -44,13 +44,15 @@ fun FormPersonaMoralScreen(
     val municipios by viewModel.municipios.collectAsState()
     val allMorales by viewModel.personasMorales.collectAsState()
 
-    LaunchedEffect(editingId, allMorales) {
-        if (editingId != null) {
+    LaunchedEffect(editingId, allMorales, estados, municipios) {
+        if (editingId != null && estados.isNotEmpty()) {
             val pm = allMorales.find { it.id == editingId }
             if (pm != null && formState.editingId == null) {
                 viewModel.prepareForEdit(pm, estados, municipios)
+            } else if (pm != null && formState.editingId != null && formState.municipioSeleccionado == null) {
+                viewModel.prepareForEdit(pm, estados, municipios)
             }
-        } else {
+        } else if (editingId == null) {
             if (formState.editingId != null) viewModel.resetForm()
         }
     }
